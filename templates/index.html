@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Convite 18 Anos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="envelope-wrapper">
+    <div class="envelope" onclick="abrirCarta()">
+        <div class="front">
+            <p>Toque para abrir</p>
+        </div>
+        <div class="back">
+            <div class="container convite">
+                <h1>Você está convidado(a) para</h1>
+                <h2>Meus 18 Anos</h2>
+
+                <p class="descricao">
+                    Uma noite especial merece pessoas especiais.
+                    Venha celebrar esse momento inesquecível comigo.
+                </p>
+
+                <div class="info">
+                    <p><strong>Data:</strong> 28 de Março</p>
+                    <p><strong>Horário:</strong> 18:30</p>
+                    <p><strong>Local:</strong> Sei la onde q é</p>
+                </div>
+
+                <form method="POST">
+                    <input type="text" name="nome" placeholder="Seu primeiro nome" required class="input-nome">
+                    <button type="submit" class="btn-confirmar">Confirmar Presença</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let aberta = false;
+
+function abrirCarta() {
+    if (aberta) return;
+
+    document.querySelector(".envelope").classList.add("open");
+    aberta = true;
+}
+</script>
+
+
+</body>
+</html>
