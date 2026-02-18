@@ -3,6 +3,8 @@ import sqlite3
 import uuid
 import smtplib
 from email.mime.text import MIMEText
+import os
+
 
 app = Flask(__name__)
 
@@ -10,8 +12,9 @@ app = Flask(__name__)
 # CONFIGURAÇÕES
 # ==============================
 
-SEU_EMAIL = "arturm.mendess@gmail.com"
-SENHA_EMAIL = "jrat nztt ztuw fpwh"
+SEU_EMAIL = os.environ.get("EMAIL_USER")
+SENHA_EMAIL = os.environ.get("EMAIL_PASS")
+
 
 # ==============================
 # LISTA DE CONVIDADOS
