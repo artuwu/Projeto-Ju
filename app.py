@@ -28,7 +28,7 @@ CONVIDADOS_INICIAIS = [
 # ==============================
 
 def init_db():
-    conn = sqlite3.connect("Projeto Ju/database.db")
+    conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -43,7 +43,7 @@ def init_db():
 
 
 def cadastrar_convidados_iniciais():
-    conn = sqlite3.connect("Projeto Ju/database.db")
+    conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
     for nome in CONVIDADOS_INICIAIS:
@@ -87,7 +87,7 @@ def index():
     if request.method == "POST":
         nome_digitado = request.form["nome"].strip()
 
-        conn = sqlite3.connect("Projeto Ju/database.db")
+        conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
 
         # Busca ignorando maiúsculas/minúsculas
