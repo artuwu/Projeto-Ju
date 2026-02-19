@@ -166,7 +166,7 @@ h2 {
 .back {
     background: #ffffff;
     transform: rotateY(180deg);
-    padding: 40px;
+    padding: 20px;
 }
 
 .envelope.open {
