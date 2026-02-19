@@ -77,9 +77,13 @@ Convidado confirmado: {nome}
     msg["From"] = SEU_EMAIL
     msg["To"] = SEU_EMAIL
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(SEU_EMAIL, SENHA_EMAIL)
-        server.send_message(msg)
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as server:
+            server.login(SEU_EMAIL, SENHA_EMAIL)
+            server.send_message(msg)
+    except Exception as e:
+        print("Erro ao enviar email:", e)
+
 
 # ==============================
 # ROTA PRINCIPAL
