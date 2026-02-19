@@ -128,7 +128,17 @@ def index():
 # START
 # ==============================
 
+# ==============================
+# INICIALIZAÇÃO (IMPORTANTE PARA RENDER)
+# ==============================
+
+init_db()
+cadastrar_convidados_iniciais()
+
+# ==============================
+# START LOCAL
+# ==============================
+
 if __name__ == "__main__":
-    init_db()
-    cadastrar_convidados_iniciais()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000)
+
