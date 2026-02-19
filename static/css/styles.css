@@ -260,54 +260,75 @@ h2 {
     }
 }
 
-/* Telas até 576px (celulares) */
+/* ====================== MOBILE-FRIENDLY ====================== */
 @media (max-width: 576px) {
+
     body {
         padding: 10px;
     }
 
+    .envelope-wrapper {
+        padding: 10px;
+        perspective: 1200px; /* mantém 3D, mas reduz distorção */
+    }
+
     .container {
-        padding: 25px;
+        padding: 20px;
         border-radius: 15px;
     }
 
     h1 {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     h2 {
-        font-size: 40px;
+        font-size: 36px;
     }
 
     .descricao, .info {
         font-size: 14px;
-        margin-bottom: 20px;
+        line-height: 1.5;
+        margin-bottom: 15px;
     }
 
     .input-nome {
+        width: 100%;
         max-width: 100%;
         padding: 10px 15px;
         font-size: 13px;
     }
 
     .btn-confirmar {
-        width: 180px;
+        width: 160px;
         padding: 10px;
         font-size: 13px;
     }
 
+    /* Envelope adaptado para mobile */
     .envelope {
         max-width: 100%;
+        transform-style: preserve-3d;
+        transition: transform 1s ease;
+        cursor: pointer;
     }
 
     .front, .back {
+        width: 100%;
         max-height: 400px;
-        font-size: 20px;
-        padding: 20px;
+        font-size: 18px;
+        padding: 15px;
+        box-shadow: none; /* remove sombras pesadas pra mobile */
     }
 
+    /* Ajuste do flip para caber melhor na tela */
+    .envelope.open {
+        transform: rotateY(180deg);
+    }
+
+    /* Popup responsivo */
     .popup {
         width: 90%;
         padding: 15px 20px;
+        font-size: 14px;
     }
 }
