@@ -2,70 +2,41 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Meus 18 anos</title>
-
+    <title>Convite 18 Anos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/6655/6655482.png">
-
-    <!-- Fontes elegantes -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;500&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="envelope-wrapper">
     <div class="envelope" onclick="abrirCarta()">
-
-        <!-- Frente -->
         <div class="front">
             <p>Toque para abrir</p>
         </div>
-
-        <!-- Verso -->
         <div class="back">
             <div class="container convite">
-
-                <h1>MEUS 18 ANOS</h1>
-                <h2 class="nome-destaque">Júlia</h2>
+                <h1>Você está convidado(a) para</h1>
+                <h2>Meus 18 Anos</h2>
 
                 <p class="descricao">
-                    Uma noite para brindar sonhos, conquistas
-                    e o início de uma nova fase.
+                    Uma noite especial merece pessoas especiais.
+                    Venha celebrar esse momento inesquecível comigo.
                 </p>
 
                 <div class="info">
-                    <p><strong>Data:</strong> 28/03/2026</p>
+                    <p><strong>Data:</strong> 28 de Março</p>
                     <p><strong>Horário:</strong> 18:30</p>
-                    <p><strong>Local:</strong> Hausmesse Casa de Eventos</p>
-                    <p>Estr. Motucas, 3122 – Vila Nova</p>
-                    <p><strong>Traje:</strong> Esporte fino</p>
+                    <p><strong>Local:</strong> Sei la onde q é</p>
                 </div>
 
                 <form method="POST">
-                    <input 
-                        type="text" 
-                        name="nome" 
-                        placeholder="Digite seu nome"
-                        required 
-                        class="input-nome"
-                    >
-
-                    <button type="submit" class="btn-confirmar">
-                        Confirmar Presença
-                    </button>
+                    <input type="text" name="nome" placeholder="Seu primeiro nome" required class="input-nome">
+                    <button type="submit" class="btn-confirmar">Confirmar Presença</button>
                 </form>
-
-                {% if erro %}
-                    <p class="mensagem erro">{{ erro }}</p>
-                {% endif %}
-
-                {% if sucesso %}
-                    <p class="mensagem sucesso">{{ sucesso }}</p>
-                {% endif %}
-
             </div>
         </div>
-
     </div>
 </div>
 
@@ -79,6 +50,7 @@ function abrirCarta() {
     aberta = true;
 }
 </script>
+
 
 </body>
 </html>
