@@ -133,7 +133,7 @@ def enviar_discord(nome):
         return
 
     data = {
-        "content": f"🎉 **Nova confirmação!**\n\nConvidado: **{nome}**"
+        "content": f"🎉 **Nova confirmação!**\n\nConvidado: **{nome}**\n\n------------------------------"
     }
 
     try:
