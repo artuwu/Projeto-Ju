@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request
 import sqlite3
 import uuid
-import smtplib
-from email.mime.text import MIMEText
 import os
+import requests
 
 app = Flask(__name__)
 
@@ -11,10 +10,8 @@ app = Flask(__name__)
 # CONFIGURAÇÕES
 # ==============================
 
-SEU_EMAIL = os.environ.get("EMAIL_USER")
-SENHA_EMAIL = os.environ.get("EMAIL_PASS")
+DISCORD_WEBHOOK = os.environ.get("DISCORD_WEBHOOK")
 
-# Caminho seguro para o banco no Render
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "database.db")
 
@@ -42,7 +39,8 @@ def init_db():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS convidados (
             id TEXT PRIMARY KEY,
-            nome TEXT UNIQUE
+            nome TEXT UNIQUE,
+            confirmado INTEGER DEFAULT 0
         )
     """)
 
@@ -60,38 +58,28 @@ def cadastrar_convidados_iniciais():
                 (str(uuid.uuid4()), nome)
             )
         except sqlite3.IntegrityError:
-            pass  # já existe
+            pass
 
     conn.commit()
     conn.close()
 
 # ==============================
-# EMAIL
+# DISCORD
 # ==============================
 
-def enviar_email(nome):
-    # Só tenta enviar se variáveis existirem
-    if not SEU_EMAIL or not SENHA_EMAIL:
-        print("Email não configurado.")
+def enviar_discord(nome):
+    if not DISCORD_WEBHOOK:
+        print("Webhook não configurado.")
         return
 
-    corpo = f"""
-Nova confirmação!
-
-Convidado confirmado: {nome}
-"""
-
-    msg = MIMEText(corpo)
-    msg["Subject"] = "Nova confirmação - Festa 18"
-    msg["From"] = SEU_EMAIL
-    msg["To"] = SEU_EMAIL
+    data = {
+        "content": f"🎉 **Nova confirmação!**\n\nConvidado: **{nome}**"
+    }
 
     try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as server:
-            server.login(SEU_EMAIL, SENHA_EMAIL)
-            server.send_message(msg)
+        requests.post(DISCORD_WEBHOOK, json=data, timeout=5)
     except Exception as e:
-        print("Erro ao enviar email:", e)
+        print("Erro ao enviar para Discord:", e)
 
 # ==============================
 # ROTA PRINCIPAL
@@ -107,28 +95,46 @@ def index():
             cursor = conn.cursor()
 
             cursor.execute(
-                "SELECT nome FROM convidados WHERE LOWER(nome) LIKE LOWER(?)",
+                "SELECT id, nome, confirmado FROM convidados WHERE LOWER(nome) LIKE LOWER(?)",
                 (nome_digitado + "%",)
             )
 
             resultados = cursor.fetchall()
-            conn.close()
 
             if len(resultados) == 1:
-                nome_oficial = resultados[0][0]
-                enviar_email(nome_oficial)
+                convidado_id, nome_oficial, confirmado = resultados[0]
+
+                if confirmado == 1:
+                    conn.close()
+                    return render_template(
+                        "index.html",
+                        erro="Presença já confirmada anteriormente."
+                    )
+
+                # marca como confirmado
+                cursor.execute(
+                    "UPDATE convidados SET confirmado = 1 WHERE id = ?",
+                    (convidado_id,)
+                )
+                conn.commit()
+                conn.close()
+
+                enviar_discord(nome_oficial)
+
                 return render_template(
                     "index.html",
                     sucesso="Presença confirmada com sucesso!"
                 )
 
             elif len(resultados) > 1:
+                conn.close()
                 return render_template(
                     "index.html",
                     erro="Digite nome e sobrenome para confirmar."
                 )
 
             else:
+                conn.close()
                 return render_template(
                     "index.html",
                     erro="Seu nome não está na lista de convidados."
