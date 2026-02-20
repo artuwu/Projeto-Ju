@@ -204,10 +204,6 @@ h2 {
         max-width: 700px;
     }
 
-    h1 {
-        font-size: 30px;
-    }
-
     h2 {
         font-size: 70px;
     }
@@ -238,33 +234,83 @@ h2 {
         max-width: 600px;
     }
 
-    h2 {
-        font-size: 26
+    h1 {
+        font-size: 27px;
     }
 
     h2 {
         font-size: 55px;
+        border-bottom: 10px;
     }
 
     .descricao, .info {
         font-size: 15px;
     }
 
+    .descricao {
+        margin-bottom: 20px;
+    }
+
+    .info {
+        margin-bottom: 20px;
+    }
+
     .input-nome {
         max-width: 300px;
         padding: 12px 18px;
         font-size: 14px;
+        margin-bottom: 0;
     }
 
     .btn-confirmar {
         width: 200px;
         padding: 12px;
         font-size: 14px;
+        margin-bottom: 0;
     }
 
     .front, .back {
         max-height: 500px;
         font-size: 24px;
+    }
+}
+
+@media (max-width: 708px) {
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 0px;
+    }
+
+    h2 {
+        font-size: 50px;
+        margin-bottom: 4px;
+    }
+
+    .descricao {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .info {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .input-nome {
+        margin-bottom: 10px;
+    }
+
+}
+
+@media (max-width: 695px) {
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 48px;
     }
 }
 
@@ -286,17 +332,18 @@ h2 {
     }
 
     h1 {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     h2 {
         font-size: 36px;
+        margin-bottom: 0;
     }
 
     .descricao, .info {
-        font-size: 14px;
+        font-size: 12px;
         line-height: 1.5;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
     }
 
     .input-nome {
@@ -304,6 +351,7 @@ h2 {
         max-width: 100%;
         padding: 10px 15px;
         font-size: 13px;
+        margin-bottom: 6px;
     }
 
     .btn-confirmar {
